@@ -3,9 +3,11 @@
 import { useActionState, useMemo, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { createInitialBookingDraft, type BookingDraft, validateBookingDraft } from "@/lib/booking-formatters";
-import { initialBookingFormState, submitBookingRequest } from "@/lib/booking-actions";
+import { submitBookingRequest } from "@/lib/booking-actions";
+import { initialBookingFormState } from "@/lib/booking-form-state";
 import { uiCopy, type Locale } from "@/lib/i18n";
 import { roomTypes } from "@/lib/k2-content";
+import { siteConfig } from "@/lib/site-config";
 
 type BookingRequestFormProps = {
   sourcePage: string;
@@ -60,7 +62,7 @@ export function BookingRequestForm({
   const copy = uiCopy[locale].bookingForm;
   const isCompact = variant === "compact";
 
-  const validation = useMemo(() => validateBookingDraft(draft), [draft]);
+  const validation = useMemo(() => validateBookingDraft(draft, locale), [draft, locale]);
   const showInlineValidation = !validation.valid && Boolean(draft.fullName || draft.phone || draft.checkin || draft.checkout);
 
   return (
@@ -68,6 +70,7 @@ export function BookingRequestForm({
       {helperText ? <p className="text-sm leading-5 text-[var(--ink-muted)]">{helperText}</p> : null}
       <form action={formAction} className="grid gap-3 rounded-[22px] border border-white/70 bg-white/92 p-3.5 shadow-sm backdrop-blur sm:grid-cols-2 sm:gap-4 sm:p-4">
         <input type="hidden" name="sourcePage" value={sourcePage} />
+        <input type="hidden" name="locale" value={locale} />
 
         <label className="grid gap-1.5 text-sm font-medium text-[var(--ink-muted)] sm:gap-2">
           {copy.checkin}
@@ -120,7 +123,33 @@ export function BookingRequestForm({
 
         {state.message ? (
           <div className={`rounded-[18px] px-4 py-3 text-sm sm:col-span-2 ${state.status === "success" ? "bg-[var(--success-soft)] text-[var(--success-ink)]" : state.status === "error" ? "bg-[var(--danger-soft)] text-[var(--danger-ink)]" : "bg-[var(--card-soft)] text-[var(--ink-muted)]"}`}>
-            {state.message}
+            <div>{state.message}</div>
+            {state.status === "error" ? (
+              <div className="mt-3 flex flex-wrap gap-2">
+                <a
+                  href={siteConfig.zaloUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-full bg-[var(--brand)] px-4 py-2 text-sm font-semibold text-white"
+                >
+                  {uiCopy[locale].cta.zalo}
+                </a>
+                <a
+                  href={`tel:${siteConfig.phoneRaw}`}
+                  className="inline-flex items-center justify-center rounded-full border border-[var(--line)] bg-white px-4 py-2 text-sm font-semibold text-[var(--ink-strong)]"
+                >
+                  {uiCopy[locale].cta.call}
+                </a>
+                <a
+                  href={siteConfig.messengerUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-full border border-[var(--line)] bg-white px-4 py-2 text-sm font-semibold text-[var(--ink-strong)]"
+                >
+                  Messenger
+                </a>
+              </div>
+            ) : null}
           </div>
         ) : null}
 

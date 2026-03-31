@@ -1,41 +1,29 @@
 "use server";
 
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import path from "node:path";
 import { revalidatePath } from "next/cache";
-import { type BookingDraft, validateBookingDraft } from "@/lib/booking-formatters";
+import { getLocale } from "@/lib/i18n";
+import { sendBookingEmail } from "@/lib/booking-email";
+import type { BookingDraft } from "@/lib/booking-formatters";
+import { validateBookingDraft } from "@/lib/booking-formatters";
+import type { BookingFormState } from "@/lib/booking-form-state";
 
-type BookingFormState = {
-  status: "idle" | "success" | "error";
-  message: string;
-};
-
-export const initialBookingFormState: BookingFormState = {
-  status: "idle",
-  message: "",
-};
-
-type BookingRequestRecord = BookingDraft & {
-  id: string;
-  createdAt: string;
-};
-
-const dataDir = path.join(process.cwd(), "data");
-const bookingFile = path.join(dataDir, "booking-requests.json");
-
-async function readRequests() {
-  try {
-    const raw = await readFile(bookingFile, "utf8");
-    return JSON.parse(raw) as BookingRequestRecord[];
-  } catch {
-    return [];
-  }
-}
+const actionCopy = {
+  vi: {
+    success: "K2 \u0111\u00e3 nh\u1eadn y\u00eau c\u1ea7u \u0111\u1eb7t ph\u00f2ng v\u00e0 s\u1ebd ph\u1ea3n h\u1ed3i s\u1edbm qua \u0111i\u1ec7n tho\u1ea1i ho\u1eb7c Zalo.",
+    temporaryError: "G\u1eedi form t\u1ea1m th\u1eddi ch\u01b0a th\u00e0nh c\u00f4ng. Vui l\u00f2ng nh\u1eafn Zalo ho\u1eb7c g\u1ecdi tr\u1ef1c ti\u1ebfp.",
+  },
+  en: {
+    success: "K2 received your booking request and will reply soon by phone or Zalo.",
+    temporaryError: "The form could not be sent right now. Please message on Zalo or call directly.",
+  },
+} as const;
 
 export async function submitBookingRequest(
   _prevState: BookingFormState,
   formData: FormData,
 ): Promise<BookingFormState> {
+  const locale = getLocale(String(formData.get("locale") ?? "vi"));
+  const copy = actionCopy[locale];
   const draft: BookingDraft = {
     checkin: String(formData.get("checkin") ?? "").trim(),
     checkout: String(formData.get("checkout") ?? "").trim(),
@@ -48,8 +36,7 @@ export async function submitBookingRequest(
     sourcePage: String(formData.get("sourcePage") ?? "").trim() || "unknown",
   };
 
-  const validation = validateBookingDraft(draft);
-
+  const validation = validateBookingDraft(draft, locale);
   if (!validation.valid) {
     return {
       status: "error",
@@ -57,22 +44,42 @@ export async function submitBookingRequest(
     };
   }
 
-  const requests = await readRequests();
-  const nextRecord: BookingRequestRecord = {
-    id: crypto.randomUUID(),
-    createdAt: new Date().toISOString(),
-    ...draft,
-  };
+  try {
+    const emailResult = await sendBookingEmail(draft, locale);
 
-  await mkdir(dataDir, { recursive: true });
-  await writeFile(bookingFile, JSON.stringify([nextRecord, ...requests], null, 2), "utf8");
+    if (!emailResult.ok) {
+      console.error("[booking] email delivery failed", {
+        reason: emailResult.reason,
+        missingEnv: emailResult.missingEnv,
+        providerError: emailResult.error,
+        roomType: draft.roomType,
+        sourcePage: draft.sourcePage,
+      });
 
-  revalidatePath("/");
-  revalidatePath("/booking");
-  revalidatePath("/contact");
+      return {
+        status: "error",
+        message: copy.temporaryError,
+      };
+    }
 
-  return {
-    status: "success",
-    message: "Đã ghi nhận yêu cầu đặt phòng. Bạn có thể bấm gửi Zalo ngay bên dưới để chuyển đầy đủ nội dung booking cho K2.",
-  };
+    revalidatePath("/");
+    revalidatePath("/booking");
+    revalidatePath("/contact");
+
+    return {
+      status: "success",
+      message: copy.success,
+    };
+  } catch (error) {
+    console.error("[booking] submit failed", {
+      message: error instanceof Error ? error.message : "Unknown error",
+      roomType: draft.roomType,
+      sourcePage: draft.sourcePage,
+    });
+
+    return {
+      status: "error",
+      message: copy.temporaryError,
+    };
+  }
 }
