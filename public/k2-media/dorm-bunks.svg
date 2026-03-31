@@ -1,0 +1,11 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#F4EFE7"/>
+  <rect x="94" y="82" width="1412" height="736" rx="32" fill="#FFF9F1"/>
+  <rect x="298" y="206" width="262" height="494" rx="18" fill="#E4D8AF"/>
+  <rect x="320" y="236" width="218" height="172" rx="12" fill="#FCFCFC"/>
+  <rect x="320" y="472" width="218" height="172" rx="12" fill="#FCFCFC"/>
+  <rect x="708" y="206" width="262" height="494" rx="18" fill="#E4D8AF"/>
+  <rect x="730" y="236" width="218" height="172" rx="12" fill="#FCFCFC"/>
+  <rect x="730" y="472" width="218" height="172" rx="12" fill="#FCFCFC"/>
+  <text x="800" y="786" text-anchor="middle" fill="#61513E" font-family="Arial, sans-serif" font-size="34">Dorm dùng chung cho dorm 4 và dorm 6</text>
+</svg>

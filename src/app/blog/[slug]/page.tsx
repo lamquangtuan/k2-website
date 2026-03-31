@@ -1,0 +1,14 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { CtaButtons } from "@/components/cta-buttons";
+import { MobileStickyActions } from "@/components/mobile-sticky-actions";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import { getLocale } from "@/lib/i18n";
+import { blogPosts } from "@/lib/site-data";
+
+type Props = { params: Promise<{ slug: string }>; searchParams?: Promise<{ lang?: string }>; };
+const copy = { vi: { ctaHeading: "Xem phòng và liên hệ nhanh", ctaText: "Nếu bạn đã chọn được loại phòng phù hợp, hãy liên hệ trực tiếp để K2 kiểm tra phòng trống." }, en: { ctaHeading: "See rooms and contact K2 quickly", ctaText: "If you already know the room you need, contact K2 directly to check availability." } } as const;
+export async function generateStaticParams() { return blogPosts.map((post) => ({ slug: post.slug })); }
+export async function generateMetadata({ params }: Props): Promise<Metadata> { const { slug } = await params; const post = blogPosts.find((item) => item.slug === slug); if (!post) return { title: "Không tìm thấy bài viết" }; return { title: post.title, description: post.excerpt }; }
+export default async function BlogDetailPage({ params, searchParams }: Props) { const { slug } = await params; const locale = getLocale((await searchParams)?.lang); const text = copy[locale]; const post = blogPosts.find((item) => item.slug === slug); if (!post) notFound(); return <div className="min-h-screen bg-[var(--bg-page)] text-[var(--ink-strong)]"><SiteHeader locale={locale} currentPath={`/blog/${post.slug}`} /><main className="px-4 pb-24 pt-6 sm:px-6 lg:px-8"><article className="mx-auto max-w-4xl rounded-[36px] border border-[var(--line)] bg-[var(--surface)] p-6 shadow-sm sm:p-8"><div className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ink-soft)]"><span>{post.category}</span><span>{post.readTime}</span><span>{post.publishedAt}</span></div><h1 className="mt-4 font-display text-5xl leading-tight">{post.title}</h1><p className="mt-4 text-lg leading-8 text-[var(--ink-muted)]">{post.excerpt}</p><div className="mt-8 space-y-5 text-base leading-8 text-[var(--ink-muted)]">{post.content.map((paragraph) => (<p key={paragraph}>{paragraph}</p>))}</div><div className="mt-10 rounded-[28px] bg-[var(--hero-surface)] p-6"><h2 className="font-display text-3xl">{text.ctaHeading}</h2><p className="mt-3 text-sm leading-7 text-[var(--ink-muted)]">{text.ctaText}</p><div className="mt-6"><CtaButtons locale={locale} /></div></div></article></main><SiteFooter locale={locale} /><MobileStickyActions locale={locale} /></div>; }

@@ -1,0 +1,8 @@
+<svg width="640" height="960" viewBox="0 0 640 960" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="640" height="960" fill="#F7EFE4"/>
+  <rect x="72" y="76" width="496" height="808" rx="30" fill="#F4A321"/>
+  <path d="M130 322L320 124L510 322V734H130V322Z" fill="#FDBA35"/>
+  <rect x="180" y="350" width="280" height="368" rx="18" fill="#FFF7EE"/>
+  <rect x="220" y="484" width="200" height="138" rx="14" fill="#D45F37"/>
+  <text x="320" y="818" text-anchor="middle" fill="#503A2A" font-family="Arial, sans-serif" font-size="28">Mặt tiền thay thế / OG</text>
+</svg>

@@ -1,0 +1,10 @@
+<svg width="1280" height="1600" viewBox="0 0 1280 1600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="1600" fill="#F5EFE6"/>
+  <rect x="136" y="108" width="1008" height="1384" rx="42" fill="#FFF9F0"/>
+  <rect x="136" y="108" width="280" height="1384" rx="42" fill="#F2C51A"/>
+  <rect x="416" y="108" width="728" height="1384" rx="42" fill="#D34433"/>
+  <rect x="242" y="342" width="200" height="314" rx="20" fill="#785233"/>
+  <rect x="584" y="760" width="200" height="270" rx="20" fill="#F6F1E8"/>
+  <circle cx="690" cy="890" r="62" fill="#427B58"/>
+  <text x="640" y="1366" text-anchor="middle" fill="#5A4735" font-family="Arial, sans-serif" font-size="42">Không gian nội thất / hành lang</text>
+</svg>

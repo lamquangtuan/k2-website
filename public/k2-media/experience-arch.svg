@@ -1,0 +1,8 @@
+<svg width="1280" height="1600" viewBox="0 0 1280 1600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="1600" fill="#EFE9E1"/>
+  <rect x="166" y="116" width="948" height="1368" rx="42" fill="#FFF9F0"/>
+  <path d="M304 1102V776C304 590 454 440 640 440C826 440 976 590 976 776V1102H304Z" fill="#C93637"/>
+  <rect x="418" y="656" width="444" height="346" rx="26" fill="#F4C51C"/>
+  <rect x="506" y="758" width="268" height="170" rx="20" fill="#6D95B8"/>
+  <text x="640" y="1264" text-anchor="middle" fill="#5A4735" font-family="Arial, sans-serif" font-size="42">Không gian trải nghiệm</text>
+</svg>

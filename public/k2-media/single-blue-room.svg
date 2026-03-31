@@ -1,0 +1,9 @@
+<svg width="1260" height="700" viewBox="0 0 1260 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1260" height="700" fill="#F2ECDF"/>
+  <rect x="80" y="54" width="1100" height="592" rx="28" fill="#F8F5EF"/>
+  <rect x="660" y="86" width="466" height="560" rx="24" fill="#8BB6D9"/>
+  <rect x="270" y="398" width="638" height="134" rx="18" fill="#9A673F"/>
+  <rect x="294" y="364" width="592" height="46" rx="14" fill="#7C4D30"/>
+  <circle cx="830" cy="222" r="74" fill="#F5F5F5"/>
+  <text x="252" y="604" fill="#4F4134" font-family="Arial, sans-serif" font-size="30">Phòng đơn góc 2</text>
+</svg>

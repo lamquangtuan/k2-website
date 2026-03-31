@@ -1,0 +1,11 @@
+<svg width="1280" height="1600" viewBox="0 0 1280 1600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="1600" fill="#F4EEE6"/>
+  <rect x="148" y="112" width="984" height="1376" rx="42" fill="#FFF9F0"/>
+  <path d="M364 1186L820 730" stroke="#D73535" stroke-width="38" stroke-linecap="round"/>
+  <path d="M504 1186H958" stroke="#D73535" stroke-width="34" stroke-linecap="round"/>
+  <path d="M404 1086H858" stroke="#D73535" stroke-width="34" stroke-linecap="round"/>
+  <path d="M304 986H758" stroke="#D73535" stroke-width="34" stroke-linecap="round"/>
+  <path d="M204 886H658" stroke="#D73535" stroke-width="34" stroke-linecap="round"/>
+  <path d="M468 520C468 400 564 304 684 304H730V480H468V520Z" fill="#D8473B"/>
+  <text x="640" y="1326" text-anchor="middle" fill="#5A4735" font-family="Arial, sans-serif" font-size="42">Cầu thang đỏ đặc trưng</text>
+</svg>

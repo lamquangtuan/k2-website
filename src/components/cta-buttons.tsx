@@ -1,0 +1,30 @@
+import Link from "next/link";
+import { uiCopy, withLang, type Locale } from "@/lib/i18n";
+import { siteConfig } from "@/lib/site-config";
+
+export function CtaButtons({
+  bookingHref = "/booking",
+  locale = "vi",
+}: {
+  bookingHref?: string;
+  locale?: Locale;
+}) {
+  const copy = uiCopy[locale].cta;
+
+  return (
+    <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
+      <Link
+        href={withLang(bookingHref, locale)}
+        className="inline-flex min-h-11 items-center justify-center rounded-full bg-[var(--brand)] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_14px_24px_rgba(181,95,46,0.28)]"
+      >
+        {copy.book}
+      </Link>
+      <a
+        href={siteConfig.zaloUrl}
+        className="inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--ink-strong)] bg-white px-5 py-2.5 text-sm font-semibold text-[var(--ink-strong)]"
+      >
+        {copy.zalo}
+      </a>
+    </div>
+  );
+}

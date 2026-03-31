@@ -1,0 +1,19 @@
+export const offers = [
+  { slug: "dat-som-gia-tot", title: "Đặt sớm, giữ phòng gọn", teaser: "Phù hợp khi bạn đã có lịch và muốn giữ chỗ sớm.", detail: "Nhắn Zalo hoặc gọi để K2 kiểm tra phòng trống theo đúng ngày ở của bạn." },
+  { slug: "o-dai-ngay", title: "Ở nhiều đêm, hỏi nhanh trực tiếp", teaser: "Phù hợp khách công tác hoặc ở từ vài đêm trở lên.", detail: "K2 hỗ trợ kiểm tra phòng, số khách và phương án ở phù hợp theo lịch thực tế." },
+  { slug: "nhom-nho-book-truc-tiep", title: "Nhóm nhỏ đặt cho dễ", teaser: "Gia đình hoặc nhóm nhỏ có thể hỏi nhanh loại phòng phù hợp.", detail: "K2 sẽ gợi ý phòng đơn, phòng gia đình hoặc dorm giường tầng theo số khách thực tế." },
+] as const;
+export const fullFaqs = [
+  { question: "K2 Homestay hiện có những loại phòng nào?", answer: "K2 hiện có phòng đơn, phòng gia đình và phòng dorm giường tầng." },
+  { question: "Có thể đặt phòng trực tiếp bằng cách nào?", answer: "Bạn có thể gọi điện, nhắn Zalo hoặc gửi form đặt phòng trực tiếp trên website." },
+  { question: "Phòng gia đình phù hợp cho bao nhiêu khách?", answer: "Phòng gia đình phù hợp nhất cho nhóm 3–4 khách hoặc gia đình nhỏ." },
+  { question: "Phòng dorm tính giá như thế nào?", answer: "Phòng dorm được tính theo số khách. K2 sẽ sắp xếp giường phù hợp với số lượng người ở thực tế." },
+  { question: "K2 phản hồi đặt phòng qua kênh nào?", answer: "K2 có thể phản hồi qua điện thoại hoặc Zalo sau khi bạn gọi, nhắn hoặc gửi form." },
+] as const;
+export const blogPosts = [
+  { slug: "homestay-can-tho-cho-cap-doi-nen-chon-loai-phong-nao", title: "Ở Cần Thơ cho 2 người nên chọn phòng nào?", excerpt: "Gợi ý nhanh giữa phòng đơn và phòng gia đình khi đi 2 người tại K2 Homestay.", category: "Chọn phòng", readTime: "4 phút đọc", publishedAt: "2026-03-25", content: ["Nếu bạn đi 2 người và muốn một không gian riêng tư, phòng đơn thường là lựa chọn gọn và phù hợp hơn.", "Phòng gia đình phù hợp hơn khi bạn muốn rộng rãi hơn hoặc đi cùng trẻ nhỏ và có thêm hành lý.", "Cách chọn nhanh nhất là nhìn loại giường, sức chứa và mức giá từ trên trang phòng rồi liên hệ trực tiếp để giữ chỗ."] },
+  { slug: "o-can-tho-cho-gia-dinh-4-nguoi-nen-o-dau", title: "Gia đình 4 người ở Cần Thơ nên chọn loại phòng nào?", excerpt: "Phòng gia đình là lựa chọn phù hợp khi cần ở chung thoải mái và tiện di chuyển tại Ninh Kiều.", category: "Gia đình", readTime: "5 phút đọc", publishedAt: "2026-03-25", content: ["Với gia đình 4 người, điều quan trọng là đủ chỗ ngủ và không phải tách thành nhiều phòng nhỏ.", "Phòng gia đình tại K2 Homestay phù hợp cho nhóm 3–4 khách nhờ bố cục rộng rãi và dễ ở ngắn ngày.", "Nếu cần giữ phòng nhanh, bạn chỉ cần gửi ngày ở và số khách qua Zalo hoặc form đặt phòng."] },
+  { slug: "dorm-can-tho-cho-nhom-ban-nho", title: "Dorm ở Cần Thơ phù hợp khi nào?", excerpt: "Phòng dorm giường tầng phù hợp khách đi một mình hoặc nhóm nhỏ muốn tối ưu chi phí.", category: "Dorm", readTime: "4 phút đọc", publishedAt: "2026-03-25", content: ["Dorm phù hợp khi bạn ưu tiên giá tốt, ở ngắn ngày và không cần một phòng riêng hoàn toàn.", "Nếu đi một mình hoặc đi nhóm nhỏ, K2 sẽ sắp xếp giường phù hợp theo số lượng khách thực tế.", "Bạn nên hỏi trước số khách và ngày ở để K2 kiểm tra chỗ trống nhanh hơn."] },
+  { slug: "kinh-nghiem-tim-homestay-trung-tam-ninh-kieu", title: "Kinh nghiệm chọn homestay gần trung tâm Ninh Kiều", excerpt: "3 điều nên xem nhanh trước khi đặt phòng ở khu trung tâm Cần Thơ.", category: "Kinh nghiệm ở", readTime: "4 phút đọc", publishedAt: "2026-03-25", content: ["Bạn nên xem trước vị trí, loại phòng và mức giá từ để chọn nhanh hơn.", "Ảnh thật của phòng và không gian chung giúp bạn hình dung đúng hơn trước khi đặt.", "Khi cần giữ phòng sớm, cách nhanh nhất vẫn là gọi hoặc nhắn Zalo trực tiếp cho homestay."] },
+] as const;
+export type BlogPost = (typeof blogPosts)[number];

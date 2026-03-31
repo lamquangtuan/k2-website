@@ -1,0 +1,10 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1920" height="1080" fill="#F6F0E7"/>
+  <rect x="108" y="98" width="1704" height="884" rx="40" fill="#FFF8EF"/>
+  <rect x="270" y="558" width="510" height="244" rx="24" fill="#A36F42"/>
+  <rect x="840" y="558" width="702" height="244" rx="24" fill="#A36F42"/>
+  <rect x="294" y="508" width="470" height="68" rx="18" fill="#805030"/>
+  <rect x="868" y="508" width="662" height="68" rx="18" fill="#805030"/>
+  <rect x="1342" y="190" width="264" height="104" rx="22" fill="#FFF1DE"/>
+  <text x="1474" y="258" text-anchor="middle" fill="#82644C" font-family="Arial, sans-serif" font-size="34">Phòng gia đình</text>
+</svg>

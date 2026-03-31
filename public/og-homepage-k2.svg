@@ -1,0 +1,14 @@
+﻿<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" rx="36" fill="#F4E8D5"/>
+  <rect x="44" y="44" width="1112" height="542" rx="32" fill="#FFF8EF" stroke="#E2C8A7"/>
+  <circle cx="962" cy="188" r="138" fill="#EFC28D" opacity="0.42"/>
+  <circle cx="1080" cy="114" r="66" fill="#B55F2E" opacity="0.2"/>
+  <circle cx="860" cy="458" r="164" fill="#D88C5B" opacity="0.18"/>
+  <text x="96" y="150" fill="#B55F2E" font-family="Georgia, serif" font-size="28" font-weight="700" letter-spacing="6">K2 HOMESTAY · NINH KIEU</text>
+  <text x="96" y="248" fill="#251A10" font-family="Georgia, serif" font-size="68" font-weight="700">Homestay gần</text>
+  <text x="96" y="330" fill="#251A10" font-family="Georgia, serif" font-size="68" font-weight="700">Bến Ninh Kiều</text>
+  <text x="96" y="392" fill="#5C4A39" font-family="Arial, sans-serif" font-size="30">Chốt phòng nhanh cho cặp đôi, gia đình và nhóm bạn</text>
+  <rect x="96" y="454" width="234" height="58" rx="29" fill="#B55F2E"/>
+  <text x="142" y="491" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="28" font-weight="700">Đặt phòng</text>
+  <text x="96" y="548" fill="#5C4A39" font-family="Arial, sans-serif" font-size="24">60 Xô Viết Nghệ Tĩnh, Ninh Kiều, Cần Thơ</text>
+</svg>

@@ -1,0 +1,12 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#EEF1F1"/>
+  <rect x="76" y="82" width="1448" height="736" rx="34" fill="#FFFDFB"/>
+  <rect x="972" y="82" width="552" height="736" rx="34" fill="#F0C600"/>
+  <rect x="170" y="248" width="500" height="86" rx="18" fill="#B7BEC4"/>
+  <circle cx="260" cy="292" r="44" fill="#FFFFFF"/>
+  <circle cx="420" cy="292" r="44" fill="#FFFFFF"/>
+  <circle cx="580" cy="292" r="44" fill="#FFFFFF"/>
+  <rect x="1016" y="196" width="174" height="450" rx="28" fill="#FFE35B"/>
+  <rect x="1230" y="196" width="174" height="450" rx="28" fill="#FFE35B"/>
+  <text x="800" y="758" text-anchor="middle" fill="#56504A" font-family="Arial, sans-serif" font-size="32">Khu vệ sinh chung sạch và sáng</text>
+</svg>
