@@ -6,6 +6,7 @@ export type BookingDraft = {
   checkout: string;
   guests: number;
   roomType: string;
+  roomQuantity: number;
   fullName: string;
   phone: string;
   email: string;
@@ -23,13 +24,16 @@ const bookingCopy = {
     missingCheckin: "Ch\u01b0a ch\u1ecdn ng\u00e0y \u0111\u1ebfn.",
     missingCheckout: "Ch\u01b0a ch\u1ecdn ng\u00e0y \u0111i.",
     missingRoomType: "Ch\u01b0a ch\u1ecdn lo\u1ea1i ph\u00f2ng.",
+    missingRoomQuantity: "Ch\u01b0a ch\u1ecdn s\u1ed1 l\u01b0\u1ee3ng ph\u00f2ng.",
     missingFullName: "Ch\u01b0a nh\u1eadp h\u1ecd t\u00ean.",
     missingPhone: "Ch\u01b0a nh\u1eadp s\u1ed1 \u0111i\u1ec7n tho\u1ea1i.",
     invalidGuests: "S\u1ed1 kh\u00e1ch ph\u1ea3i l\u1edbn h\u01a1n 0.",
+    invalidRoomQuantity: "S\u1ed1 l\u01b0\u1ee3ng ph\u00f2ng ph\u1ea3i l\u1edbn h\u01a1n 0.",
     invalidDateRange: "Ng\u00e0y \u0111i ph\u1ea3i sau ng\u00e0y \u0111\u1ebfn.",
     invalidPhone: "S\u1ed1 \u0111i\u1ec7n tho\u1ea1i ch\u01b0a h\u1ee3p l\u1ec7.",
     bookingRequestTitle: "Y\u00eau c\u1ea7u \u0111\u1eb7t ph\u00f2ng K2 Homestay",
     roomType: "Lo\u1ea1i ph\u00f2ng",
+    roomQuantity: "S\u1ed1 l\u01b0\u1ee3ng ph\u00f2ng",
     checkin: "Ng\u00e0y \u0111\u1ebfn",
     checkout: "Ng\u00e0y \u0111i",
     guests: "S\u1ed1 kh\u00e1ch",
@@ -46,13 +50,16 @@ const bookingCopy = {
     missingCheckin: "Please choose a check-in date.",
     missingCheckout: "Please choose a check-out date.",
     missingRoomType: "Please choose a room type.",
+    missingRoomQuantity: "Please choose the number of rooms.",
     missingFullName: "Please enter your full name.",
     missingPhone: "Please enter your phone number.",
     invalidGuests: "Guest count must be greater than 0.",
+    invalidRoomQuantity: "Room quantity must be greater than 0.",
     invalidDateRange: "Check-out must be after check-in.",
     invalidPhone: "Phone number looks invalid.",
     bookingRequestTitle: "K2 Homestay booking request",
     roomType: "Room type",
+    roomQuantity: "Number of rooms",
     checkin: "Check-in",
     checkout: "Check-out",
     guests: "Guests",
@@ -84,9 +91,11 @@ export function validateBookingDraft(draft: BookingDraft, locale: Locale = "vi")
   if (!draft.checkin) errors.push(copy.missingCheckin);
   if (!draft.checkout) errors.push(copy.missingCheckout);
   if (!draft.roomType) errors.push(copy.missingRoomType);
+  if (!draft.roomQuantity) errors.push(copy.missingRoomQuantity);
   if (!draft.fullName.trim()) errors.push(copy.missingFullName);
   if (!draft.phone.trim()) errors.push(copy.missingPhone);
   if (draft.guests < 1) errors.push(copy.invalidGuests);
+  if (!Number.isInteger(draft.roomQuantity) || draft.roomQuantity < 1) errors.push(copy.invalidRoomQuantity);
   if (draft.checkin && draft.checkout && draft.checkout <= draft.checkin) errors.push(copy.invalidDateRange);
   if (draft.phone && draft.phone.replace(/\D/g, "").length < 9) errors.push(copy.invalidPhone);
 
@@ -100,6 +109,7 @@ export function formatBookingMessage(draft: BookingDraft, locale: Locale = "vi")
   return [
     copy.bookingRequestTitle,
     `${copy.roomType}: ${roomLabel}`,
+    `${copy.roomQuantity}: ${draft.roomQuantity || "-"}`,
     `${copy.checkin}: ${draft.checkin || "-"}`,
     `${copy.checkout}: ${draft.checkout || "-"}`,
     `${copy.guests}: ${draft.guests || "-"}`,
@@ -117,7 +127,7 @@ export function buildBookingSummary(draft: BookingDraft, locale: Locale = "vi") 
   return {
     roomLabel: getRoomLabel(draft.roomType, locale),
     dateRange: draft.checkin && draft.checkout ? `${draft.checkin} \u2192 ${draft.checkout}` : copy.dateRangeMissing,
-    contactLine: `${draft.fullName || copy.missingName} \u00b7 ${draft.phone || copy.missingPhoneSummary}`,
+    contactLine: `${draft.fullName || copy.missingName} \u00b7 ${draft.phone || copy.missingPhoneSummary} \u00b7 ${draft.roomQuantity || 1}`,
   };
 }
 
@@ -127,6 +137,7 @@ export function createInitialBookingDraft(sourcePage: string, roomType: string) 
     checkout: "",
     guests: 2,
     roomType,
+    roomQuantity: 1,
     fullName: "",
     phone: "",
     email: "",

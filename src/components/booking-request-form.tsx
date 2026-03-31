@@ -35,10 +35,10 @@ function SubmitButton({ label, disabled, locale }: { label: string; disabled: bo
 }
 
 function buildDraftFromState(draft: BookingDraft, name: keyof BookingDraft, value: string) {
-  if (name === "guests") {
+  if (name === "guests" || name === "roomQuantity") {
     return {
       ...draft,
-      guests: Number(value || 0),
+      [name]: Number(value || 0),
     };
   }
 
@@ -84,16 +84,34 @@ export function BookingRequestForm({
           {copy.guests}
           <input type="number" name="guests" min="1" className="field" required value={draft.guests} onChange={(event) => setDraft((current) => buildDraftFromState(current, "guests", event.target.value))} />
         </label>
-        <label className="grid gap-1.5 text-sm font-medium text-[var(--ink-muted)] sm:gap-2">
-          {copy.roomType}
-          <select name="roomType" className="field" required value={draft.roomType} onChange={(event) => setDraft((current) => buildDraftFromState(current, "roomType", event.target.value))}>
-            {roomTypes.map((room) => (
-              <option key={room.slug} value={room.slug}>
-                {room.name[locale]}
-              </option>
-            ))}
-          </select>
-        </label>
+        <div className="grid gap-3 sm:col-span-2 sm:grid-cols-[minmax(0,1fr)_160px]">
+          <label className="grid gap-1.5 text-sm font-medium text-[var(--ink-muted)] sm:gap-2">
+            {copy.roomType}
+            <select name="roomType" className="field" required value={draft.roomType} onChange={(event) => setDraft((current) => buildDraftFromState(current, "roomType", event.target.value))}>
+              {roomTypes.map((room) => (
+                <option key={room.slug} value={room.slug}>
+                  {room.name[locale]}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="grid gap-1.5 text-sm font-medium text-[var(--ink-muted)] sm:gap-2">
+            {copy.roomQuantity}
+            <select
+              name="roomQuantity"
+              className="field"
+              required
+              value={draft.roomQuantity}
+              onChange={(event) => setDraft((current) => buildDraftFromState(current, "roomQuantity", event.target.value))}
+            >
+              {[1, 2, 3, 4, 5].map((value) => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
         <label className="grid gap-1.5 text-sm font-medium text-[var(--ink-muted)] sm:gap-2">
           {copy.fullName}
           <input type="text" name="fullName" placeholder={copy.fullNamePlaceholder} className="field" required value={draft.fullName} onChange={(event) => setDraft((current) => buildDraftFromState(current, "fullName", event.target.value))} />
