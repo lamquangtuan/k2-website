@@ -1,22 +1,18 @@
-import type { MetadataRoute } from "next";
-
-const baseUrl = "https://k2homestay.com";
+import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
-
   return [
     {
-      url: `${baseUrl}/`,
-      lastModified,
+      url: "https://k2homestay.com",
+      lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/rooms`,
-      lastModified,
+      url: "https://k2homestay.com/#rooms",
+      lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/contact`,
-      lastModified,
+      url: "https://k2homestay.com/#contact",
+      lastModified: new Date(),
     },
   ];
 }
