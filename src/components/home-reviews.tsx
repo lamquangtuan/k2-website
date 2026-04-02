@@ -10,6 +10,7 @@ import { uiCopy, type Locale } from "@/lib/i18n";
 export function HomeReviews({ locale = "vi", showMoreLink = true }: { locale?: Locale; showMoreLink?: boolean }) {
   const copy = uiCopy[locale].home;
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const reviewLinkLabel = `${copy.reviewsMore} \u2192`;
 
   return (
     <section id="reviews" className="rounded-[24px] border border-[var(--line)] bg-[var(--surface)] p-4 shadow-sm sm:p-5">
@@ -20,13 +21,13 @@ export function HomeReviews({ locale = "vi", showMoreLink = true }: { locale?: L
           <p className="mt-2 max-w-2xl text-sm leading-5 text-[var(--ink-muted)]">{copy.reviewsSubtext}</p>
           {showMoreLink ? (
             <button type="button" onClick={() => setActiveIndex(0)} className="mt-2 inline-flex whitespace-nowrap text-sm font-semibold text-[var(--brand)] sm:hidden">
-              {copy.reviewsMore} â†’
+              {reviewLinkLabel}
             </button>
           ) : null}
         </div>
         {showMoreLink ? (
           <button type="button" onClick={() => setActiveIndex(0)} className="hidden whitespace-nowrap text-sm font-semibold text-[var(--brand)] sm:inline-flex">
-            {copy.reviewsMore} â†’
+            {reviewLinkLabel}
           </button>
         ) : null}
       </div>

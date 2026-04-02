@@ -7,6 +7,7 @@ type BookingEmailConfig = {
   apiKey: string;
   toEmail: string;
   fromEmail: string;
+  usingFallbackFromEmail: boolean;
 };
 
 export type SendBookingEmailResult =
@@ -21,6 +22,7 @@ export type SendBookingEmailResult =
         hasApiKey: boolean;
         fromEmail: string;
         toEmail: string;
+        usingFallbackFromEmail: boolean;
       };
     };
 
@@ -61,6 +63,8 @@ const emailCopy = {
   },
 } as const;
 
+const DEFAULT_FROM_EMAIL = "onboarding@resend.dev";
+
 function formatDisplayDate(date: string) {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date);
   if (!match) {
@@ -71,19 +75,32 @@ function formatDisplayDate(date: string) {
   return `${day}/${month}/${year}`;
 }
 
-function getBookingEmailConfig(): { ok: true; config: BookingEmailConfig } | { ok: false; missingEnv: string[]; configLog: { hasApiKey: boolean; fromEmail: string; toEmail: string } } {
+function getBookingEmailConfig():
+  | { ok: true; config: BookingEmailConfig }
+  | {
+      ok: false;
+      missingEnv: string[];
+      configLog: {
+        hasApiKey: boolean;
+        fromEmail: string;
+        toEmail: string;
+        usingFallbackFromEmail: boolean;
+      };
+    } {
   const apiKey = process.env.RESEND_API_KEY?.trim() ?? "";
   const toEmail = process.env.BOOKING_TO_EMAIL?.trim() ?? "";
-  const fromEmail = process.env.BOOKING_FROM_EMAIL?.trim() ?? "";
+  const envFromEmail = process.env.BOOKING_FROM_EMAIL?.trim() ?? "";
+  const fromEmail = envFromEmail || DEFAULT_FROM_EMAIL;
+  const usingFallbackFromEmail = !envFromEmail;
   const missingEnv = [
     !apiKey ? "RESEND_API_KEY" : "",
     !toEmail ? "BOOKING_TO_EMAIL" : "",
-    !fromEmail ? "BOOKING_FROM_EMAIL" : "",
   ].filter(Boolean);
   const configLog = {
     hasApiKey: Boolean(apiKey),
     fromEmail,
     toEmail,
+    usingFallbackFromEmail,
   };
 
   if (missingEnv.length > 0) {
@@ -96,6 +113,7 @@ function getBookingEmailConfig(): { ok: true; config: BookingEmailConfig } | { o
       apiKey,
       toEmail,
       fromEmail,
+      usingFallbackFromEmail,
     },
   };
 }
@@ -206,6 +224,7 @@ export async function sendBookingEmail(draft: BookingDraft, locale: Locale): Pro
           hasApiKey: true,
           fromEmail: config.fromEmail,
           toEmail: config.toEmail,
+          usingFallbackFromEmail: config.usingFallbackFromEmail,
         },
       };
     }
@@ -221,6 +240,7 @@ export async function sendBookingEmail(draft: BookingDraft, locale: Locale): Pro
         hasApiKey: true,
         fromEmail: config.fromEmail,
         toEmail: config.toEmail,
+        usingFallbackFromEmail: config.usingFallbackFromEmail,
       },
     };
   }

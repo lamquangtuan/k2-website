@@ -58,6 +58,7 @@ export async function submitBookingRequest(
         hasResendApiKey: emailResult.configLog.hasApiKey,
         fromEmail: emailResult.configLog.fromEmail,
         toEmail: emailResult.configLog.toEmail,
+        usingFallbackFromEmail: emailResult.configLog.usingFallbackFromEmail,
         subject: emailResult.subject,
         roomType: draft.roomType,
         roomQuantity: draft.roomQuantity,
