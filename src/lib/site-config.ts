@@ -14,7 +14,7 @@ export const siteConfig = {
   mapsUrl:
     "https://maps.google.com/?q=60+X%C3%B4+Vi%E1%BA%BFt+Ngh%E1%BB%87+T%C4%A9nh,+Ph%C6%B0%E1%BB%9Dng+Ninh+Ki%E1%BB%81u,+Th%C3%A0nh+ph%E1%BB%91+C%E1%BA%A7n+Th%C6%A1",
   email: "k2homestaycantho@gmail.com",
-  siteUrl: "https://homestayk2.vn",
+  siteUrl: "https://k2homestay.com",
 } as const;
 
 export function getSiteAddress(locale: Locale) {
