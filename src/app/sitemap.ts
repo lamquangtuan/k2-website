@@ -1,17 +1,18 @@
 import { MetadataRoute } from "next";
+import { siteConfig } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://k2homestay.com",
+      url: siteConfig.siteUrl,
       lastModified: new Date(),
     },
     {
-      url: "https://k2homestay.com/#rooms",
+      url: `${siteConfig.siteUrl}/#rooms`,
       lastModified: new Date(),
     },
     {
-      url: "https://k2homestay.com/#contact",
+      url: `${siteConfig.siteUrl}/#contact`,
       lastModified: new Date(),
     },
   ];
