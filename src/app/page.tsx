@@ -68,7 +68,7 @@ export default async function HomePage({ searchParams }: { searchParams?: Promis
               <h1 className="mt-1 max-w-3xl font-display text-[1.65rem] leading-[1.02] tracking-[-0.04em] sm:text-4xl lg:text-[2.9rem]">
                 {copy.home.title}
               </h1>
-              <p className="mt-2 max-w-xl overflow-hidden text-sm leading-5 text-[var(--ink-muted)] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-base sm:leading-6 sm:[-webkit-line-clamp:unset] sm:[display:block]">
+              <p className="mt-2 max-w-xl whitespace-pre-line text-sm leading-5 text-[var(--ink-muted)] sm:text-base sm:leading-6">
                 {copy.home.subtitle}
               </p>
               <div className="mt-2.5">

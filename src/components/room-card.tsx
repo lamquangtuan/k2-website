@@ -6,12 +6,13 @@ import type { RoomType } from "@/lib/k2-content";
 import { trackEvent } from "@/lib/analytics";
 import { uiCopy, withLang, type Locale } from "@/lib/i18n";
 import { getRoomMedia } from "@/lib/media-data";
+import { siteConfig } from "@/lib/site-config";
 
 export function RoomCard({ room, locale = "vi" }: { room: RoomType; locale?: Locale }) {
   const media = getRoomMedia(room.slug);
   const copy = uiCopy[locale].cta;
   const roomHref = withLang(`/rooms/${room.slug}`, locale);
-  const bookingHref = withLang(`/booking?room=${room.slug}`, locale);
+  const bookingHref = siteConfig.zaloUrl;
 
   return (
     <article className="overflow-hidden rounded-[22px] border border-[var(--line)] bg-[var(--surface)] shadow-sm">
@@ -42,13 +43,13 @@ export function RoomCard({ room, locale = "vi" }: { room: RoomType; locale?: Loc
           >
             {copy.viewRoom}
           </Link>
-          <Link
+          <a
             href={bookingHref}
-            onClick={() => trackEvent("click_booking")}
+            onClick={() => trackEvent("click_zalo")}
             className="inline-flex items-center justify-center rounded-full bg-[var(--brand)] px-4 py-2 text-sm font-semibold text-white shadow-[0_14px_24px_rgba(181,95,46,0.24)]"
           >
             {copy.quickBook}
-          </Link>
+          </a>
         </div>
       </div>
     </article>

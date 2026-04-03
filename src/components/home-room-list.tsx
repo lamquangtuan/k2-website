@@ -24,7 +24,7 @@ export function HomeRoomList({ locale = "vi" }: { locale?: Locale }) {
         ))}
       </div>
 
-      <p className="mt-3 text-sm font-medium text-[var(--ink-muted)]">
+      <p className="mt-3 text-center text-sm font-medium text-[var(--ink-muted)]">
         {locale === "vi"
           ? "Giá thay đổi theo ngày – nhắn Zalo để báo giá nhanh"
           : "Prices may vary by date — message on Zalo for a quick quote"}
