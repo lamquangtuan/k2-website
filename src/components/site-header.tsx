@@ -1,12 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { siteMedia } from "@/lib/media-data";
+import { trackEvent } from "@/lib/analytics";
 import { uiCopy, withLang, type Locale } from "@/lib/i18n";
+import { siteMedia } from "@/lib/media-data";
 import { siteConfig } from "@/lib/site-config";
 
 export function SiteHeader({ locale = "vi", currentPath = "/" }: { locale?: Locale; currentPath?: string }) {
   const copy = uiCopy[locale];
-  const callLabel = locale === "vi" ? "Gọi" : "Call";
 
   return (
     <header className="sticky top-0 z-40 px-3 pt-1.5 sm:px-6 lg:px-8">
@@ -16,7 +18,9 @@ export function SiteHeader({ locale = "vi", currentPath = "/" }: { locale?: Loca
             <Image src={siteMedia.logo.src} alt={siteMedia.logo.alt} fill sizes="36px" className="object-contain p-1" />
           </div>
           <div className="min-w-0">
-            <div className="hidden truncate text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--ink-soft)] sm:block sm:text-[11px]">Ninh Kiều · Cần Thơ</div>
+            <div className="hidden truncate text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--ink-soft)] sm:block sm:text-[11px]">
+              Ninh Kiều · Cần Thơ
+            </div>
             <div className="truncate font-display text-[15px] leading-none sm:text-lg">{siteConfig.name}</div>
           </div>
         </Link>
@@ -43,15 +47,21 @@ export function SiteHeader({ locale = "vi", currentPath = "/" }: { locale?: Loca
               EN
             </Link>
           </div>
-          <a href={`tel:${siteConfig.phoneRaw}`} className="hidden text-sm font-semibold text-[var(--ink-muted)] sm:block">
+
+          <a
+            href={`tel:${siteConfig.phoneRaw}`}
+            onClick={() => trackEvent("click_call")}
+            className="hidden text-sm font-semibold text-[var(--ink-muted)] sm:block"
+          >
             {siteConfig.phoneDisplay}
           </a>
           <a
             href={`tel:${siteConfig.phoneRaw}`}
+            onClick={() => trackEvent("click_call")}
             className="inline-flex shrink-0 items-center justify-center rounded-full bg-[var(--ink-strong)] px-3 py-1 text-sm font-semibold text-white sm:px-4 sm:py-2"
             aria-label={locale === "vi" ? "Gọi ngay" : "Call now"}
           >
-            <span className="whitespace-nowrap text-white">{callLabel}</span>
+            <span className="whitespace-nowrap text-white">{copy.cta.callShort}</span>
           </a>
         </div>
       </div>

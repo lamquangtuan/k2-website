@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { BookingRequestForm } from "@/components/booking-request-form";
 import { CtaButtons } from "@/components/cta-buttons";
 import { HomeGallery } from "@/components/home-gallery";
+import { HomeHeroActions } from "@/components/home-hero-actions";
 import { HomeReviews } from "@/components/home-reviews";
 import { HomeRoomList } from "@/components/home-room-list";
 import { JsonLd } from "@/components/json-ld";
@@ -11,13 +11,14 @@ import { MobileStickyActions } from "@/components/mobile-sticky-actions";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { homeHighlights } from "@/lib/k2-content";
-import { buildHomepageStructuredData } from "@/lib/seo";
-import { getLocale, uiCopy, withLang } from "@/lib/i18n";
+import { getLocale, uiCopy } from "@/lib/i18n";
 import { siteMedia } from "@/lib/media-data";
+import { buildHomepageStructuredData } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 
-const homeDescription = "K2 Homestay Cần Thơ – phòng đơn, phòng gia đình, dorm sạch đẹp, gần trung tâm, giá tốt.";
-const homeTitle = "K2 Homestay Cần Thơ – Phòng đẹp, giá tốt, trung tâm";
+const homeDescription =
+  "Homestay tại trung tâm Ninh Kiều, Cần Thơ. Dorm từ 120k, phòng riêng từ 300k. Đặt nhanh qua Zalo hoặc gọi trực tiếp.";
+const homeTitle = "K2 Homestay Cần Thơ | Trung tâm Ninh Kiều | Giá từ 120k";
 
 export const metadata: Metadata = {
   title: homeTitle,
@@ -64,41 +65,32 @@ export default async function HomePage({ searchParams }: { searchParams?: Promis
           <section className="grid gap-3 lg:grid-cols-[0.96fr_1.04fr] lg:gap-4">
             <div className="rounded-[24px] border border-[var(--line)] bg-[var(--hero-surface)] p-4 shadow-[0_18px_50px_rgba(37,26,16,0.08)] sm:p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--brand)]">{copy.home.eyebrow}</p>
-              <h1 className="mt-1 max-w-3xl font-display text-[1.65rem] leading-[1.02] tracking-[-0.04em] sm:text-4xl lg:text-[2.9rem]">{copy.home.title}</h1>
+              <h1 className="mt-1 max-w-3xl font-display text-[1.65rem] leading-[1.02] tracking-[-0.04em] sm:text-4xl lg:text-[2.9rem]">
+                {copy.home.title}
+              </h1>
               <p className="mt-2 max-w-xl overflow-hidden text-sm leading-5 text-[var(--ink-muted)] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-base sm:leading-6 sm:[-webkit-line-clamp:unset] sm:[display:block]">
                 {copy.home.subtitle}
               </p>
-              <div className="mt-2.5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-                <a
-                  href={siteConfig.zaloUrl}
-                  className="inline-flex min-h-11 items-center justify-center rounded-full bg-[var(--brand)] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_14px_24px_rgba(181,95,46,0.28)]"
-                >
-                  {copy.cta.zalo}
-                </a>
-                <a
-                  href={`tel:${siteConfig.phoneRaw}`}
-                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--ink-strong)] bg-white px-5 py-2.5 text-sm font-semibold text-[var(--ink-strong)]"
-                >
-                  {copy.cta.call}
-                </a>
-                <Link
-                  href={withLang("/rooms", locale)}
-                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--card-soft)] px-5 py-2.5 text-sm font-semibold text-[var(--ink-strong)]"
-                >
-                  {copy.cta.viewRoom}
-                </Link>
+              <div className="mt-2.5">
+                <HomeHeroActions locale={locale} />
               </div>
             </div>
 
             <section className="relative overflow-hidden rounded-[24px] border border-[var(--line)] shadow-sm">
               <div className="relative min-h-[168px] sm:min-h-[260px] lg:min-h-[300px]">
-                <Image src={siteMedia.heroFront.src} alt={siteMedia.heroFront.alt} fill priority sizes="(min-width: 1024px) 52vw, 100vw" className="object-cover object-center" />
+                <Image
+                  src={siteMedia.heroFront.src}
+                  alt={siteMedia.heroFront.alt}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 52vw, 100vw"
+                  className="object-cover object-center"
+                />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,16,12,0.04),rgba(20,16,12,0.22))]" />
               </div>
               <div className="absolute inset-x-0 bottom-0 p-2.5 sm:p-3">
-                <div className="grid gap-2 sm:grid-cols-2">
-                  <div className="rounded-[16px] bg-white/92 px-3 py-2 text-[13px] leading-5 text-[var(--ink-muted)] backdrop-blur sm:text-sm">{copy.home.heroStat1}</div>
-                  <div className="rounded-[16px] bg-white/92 px-3 py-2 text-[13px] leading-5 text-[var(--ink-muted)] backdrop-blur sm:text-sm">{copy.home.heroStat2}</div>
+                <div className="rounded-[16px] bg-white/92 px-3 py-2 text-[13px] leading-5 text-[var(--ink-muted)] backdrop-blur sm:text-sm">
+                  {copy.home.heroStat1}
                 </div>
               </div>
             </section>

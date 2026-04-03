@@ -53,8 +53,8 @@ export const roomTypes: readonly RoomType[] = [
       en: "Good for 1-2 guests who want privacy and a quick stay.",
     },
     tagline: {
-      vi: "Ph\u00f9 h\u1ee3p 1-2 kh\u00e1ch, ri\u00eang t\u01b0",
-      en: "Private, best for 1-2 guests",
+      vi: "1-2 kh\u00e1ch, ri\u00eang t\u01b0",
+      en: "1-2 guests, private",
     },
     size: { vi: "18-20m\u00b2", en: "18-20m\u00b2" },
     goodFor: [
@@ -103,8 +103,8 @@ export const roomTypes: readonly RoomType[] = [
       en: "Good for groups of 3-4 who want to stay together in one room.",
     },
     tagline: {
-      vi: "Gia \u0111\u00ecnh 3-4 ng\u01b0\u1eddi, r\u1ed9ng r\u00e3i",
-      en: "Spacious for families of 3-4",
+      vi: "3-4 kh\u00e1ch, r\u1ed9ng r\u00e3i",
+      en: "3-4 guests, spacious",
     },
     size: { vi: "28-32m\u00b2", en: "28-32m\u00b2" },
     goodFor: [
@@ -153,8 +153,8 @@ export const roomTypes: readonly RoomType[] = [
       en: "Good for solo guests or small groups who want better value.",
     },
     tagline: {
-      vi: "\u0110i m\u1ed9t m\u00ecnh ho\u1eb7c nh\u00f3m nh\u1ecf, gi\u00e1 h\u1ee3p l\u00fd",
-      en: "Good value for solo guests or small groups",
+      vi: "Gi\u01b0\u1eddng t\u1ea7ng, ti\u1ebft ki\u1ec7m",
+      en: "Bunk beds, budget-friendly",
     },
     size: { vi: "khu dorm chung", en: "shared dorm area" },
     goodFor: [

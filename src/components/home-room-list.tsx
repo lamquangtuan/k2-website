@@ -23,6 +23,12 @@ export function HomeRoomList({ locale = "vi" }: { locale?: Locale }) {
           <RoomCard key={room.slug} room={room} locale={locale} />
         ))}
       </div>
+
+      <p className="mt-3 text-sm font-medium text-[var(--ink-muted)]">
+        {locale === "vi"
+          ? "Giá thay đổi theo ngày – nhắn Zalo để báo giá nhanh"
+          : "Prices may vary by date — message on Zalo for a quick quote"}
+      </p>
     </section>
   );
 }

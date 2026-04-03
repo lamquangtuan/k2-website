@@ -13,7 +13,7 @@ export const pricingData = {
     pricingUnit: "night",
   },
   family: {
-    priceFromVnd: 420000,
+    priceFromVnd: 400000,
     pricingUnit: "night",
   },
   dorm: {
