@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { BookingRequestForm } from "@/components/booking-request-form";
 import { CtaButtons } from "@/components/cta-buttons";
 import { HomeGallery } from "@/components/home-gallery";
@@ -11,7 +12,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { homeHighlights } from "@/lib/k2-content";
 import { buildHomepageStructuredData } from "@/lib/seo";
-import { getLocale, uiCopy } from "@/lib/i18n";
+import { getLocale, uiCopy, withLang } from "@/lib/i18n";
 import { siteMedia } from "@/lib/media-data";
 import { siteConfig } from "@/lib/site-config";
 
@@ -67,8 +68,25 @@ export default async function HomePage({ searchParams }: { searchParams?: Promis
               <p className="mt-2 max-w-xl overflow-hidden text-sm leading-5 text-[var(--ink-muted)] [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] sm:text-base sm:leading-6 sm:[-webkit-line-clamp:unset] sm:[display:block]">
                 {copy.home.subtitle}
               </p>
-              <div className="mt-2.5">
-                <CtaButtons locale={locale} />
+              <div className="mt-2.5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+                <a
+                  href={siteConfig.zaloUrl}
+                  className="inline-flex min-h-11 items-center justify-center rounded-full bg-[var(--brand)] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_14px_24px_rgba(181,95,46,0.28)]"
+                >
+                  {copy.cta.zalo}
+                </a>
+                <a
+                  href={`tel:${siteConfig.phoneRaw}`}
+                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--ink-strong)] bg-white px-5 py-2.5 text-sm font-semibold text-[var(--ink-strong)]"
+                >
+                  {copy.cta.call}
+                </a>
+                <Link
+                  href={withLang("/rooms", locale)}
+                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--line)] bg-[var(--card-soft)] px-5 py-2.5 text-sm font-semibold text-[var(--ink-strong)]"
+                >
+                  {copy.cta.viewRoom}
+                </Link>
               </div>
             </div>
 
