@@ -39,6 +39,7 @@ export function RoomCard({ room, locale = "vi" }: { room: RoomType; locale?: Loc
         <div className="mt-2 grid grid-cols-2 gap-2">
           <Link
             href={roomHref}
+            onClick={() => trackEvent("click_view_room")}
             className="inline-flex items-center justify-center rounded-full border border-[var(--line)] bg-white px-4 py-2 text-sm font-semibold text-[var(--ink-strong)]"
           >
             {copy.viewRoom}

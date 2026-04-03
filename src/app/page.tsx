@@ -65,7 +65,7 @@ export default async function HomePage({ searchParams }: { searchParams?: Promis
           <section className="grid gap-3 lg:grid-cols-[0.96fr_1.04fr] lg:gap-4">
             <div className="rounded-[24px] border border-[var(--line)] bg-[var(--hero-surface)] p-4 shadow-[0_18px_50px_rgba(37,26,16,0.08)] sm:p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--brand)]">{copy.home.eyebrow}</p>
-              <h1 className="mt-1 max-w-3xl font-display text-[1.65rem] leading-[1.02] tracking-[-0.04em] sm:text-4xl lg:text-[2.9rem]">
+              <h1 className="mt-1 max-w-3xl pt-1 font-display text-[1.65rem] leading-[1.14] tracking-[-0.04em] sm:text-4xl sm:leading-[1.1] lg:text-[2.9rem]">
                 {copy.home.title}
               </h1>
               <p className="mt-2 max-w-xl whitespace-pre-line text-sm leading-5 text-[var(--ink-muted)] sm:text-base sm:leading-6">
@@ -89,7 +89,7 @@ export default async function HomePage({ searchParams }: { searchParams?: Promis
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,16,12,0.04),rgba(20,16,12,0.22))]" />
               </div>
               <div className="absolute inset-x-0 bottom-0 p-2.5 sm:p-3">
-                <div className="rounded-[16px] bg-white/92 px-3 py-2 text-[13px] leading-5 text-[var(--ink-muted)] backdrop-blur sm:text-sm">
+                <div className="rounded-[16px] bg-white/92 px-3 py-2 text-xs leading-4 text-[var(--ink-muted)] backdrop-blur sm:text-sm sm:leading-5">
                   {copy.home.heroStat1}
                 </div>
               </div>

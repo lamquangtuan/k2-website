@@ -6,7 +6,7 @@ declare global {
   }
 }
 
-export function trackEvent(eventName: "click_zalo" | "click_call" | "click_booking") {
+export function trackEvent(eventName: "click_zalo" | "click_call" | "click_booking" | "click_view_room") {
   if (typeof window === "undefined" || typeof window.gtag !== "function") {
     return;
   }

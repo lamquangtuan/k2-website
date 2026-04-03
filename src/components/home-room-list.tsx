@@ -1,7 +1,7 @@
 import Link from "next/link";
+import { RoomCard } from "@/components/room-card";
 import { roomTypes } from "@/lib/k2-content";
 import { uiCopy, withLang, type Locale } from "@/lib/i18n";
-import { RoomCard } from "@/components/room-card";
 
 export function HomeRoomList({ locale = "vi" }: { locale?: Locale }) {
   const copy = uiCopy[locale];
