@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { MobileStickyActions } from "@/components/mobile-sticky-actions";
+import { BlogStickyActions } from "@/components/blog-sticky-actions";
 import { SectionHeading } from "@/components/section-heading";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -75,7 +75,7 @@ export default async function BlogPage({ searchParams }: { searchParams?: Search
       </main>
 
       <SiteFooter locale={locale} />
-      <MobileStickyActions locale={locale} />
+      <BlogStickyActions locale={locale} />
     </div>
   );
 }

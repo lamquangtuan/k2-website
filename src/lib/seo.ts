@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import type { BlogPost } from "@/lib/blog-data";
 import { getRoomMedia, siteMedia } from "@/lib/media-data";
 import { homeHighlights, roomTypes, type RoomType } from "@/lib/k2-content";
 import { siteConfig } from "@/lib/site-config";
@@ -106,4 +108,36 @@ export function buildHomepageStructuredData() {
       })),
     },
   ];
+}
+
+export function buildBlogPostMetadata(post: BlogPost): Metadata {
+  const pageUrl = `${siteConfig.siteUrl}/blog/${post.slug}`;
+
+  return {
+    title: post.seoTitle,
+    description: post.seoDescription,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: post.seoTitle,
+      description: post.seoDescription,
+      type: "article",
+      url: pageUrl,
+      images: [
+        {
+          url: `${siteConfig.siteUrl}${post.image}`,
+          width: 1200,
+          height: 630,
+          alt: post.imageAlt,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.seoTitle,
+      description: post.seoDescription,
+      images: [`${siteConfig.siteUrl}${post.image}`],
+    },
+  };
 }

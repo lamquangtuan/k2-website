@@ -7,7 +7,7 @@ export function HomeRoomList({ locale = "vi" }: { locale?: Locale }) {
   const copy = uiCopy[locale];
 
   return (
-    <section className="rounded-[24px] border border-[var(--line)] bg-[var(--surface)] p-4 shadow-sm sm:p-5">
+    <section id="rooms" className="rounded-[24px] border border-[var(--line)] bg-[var(--surface)] p-4 shadow-sm sm:p-5">
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--ink-soft)]">{copy.rooms.listEyebrow}</p>

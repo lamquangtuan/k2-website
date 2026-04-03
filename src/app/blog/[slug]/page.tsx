@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BlogInlineZaloCta } from "@/components/blog-inline-zalo-cta";
+import { BlogStickyActions } from "@/components/blog-sticky-actions";
 import { HomeHeroActions } from "@/components/home-hero-actions";
-import { MobileStickyActions } from "@/components/mobile-sticky-actions";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { blogPosts, getBlogPostBySlug } from "@/lib/blog-data";
 import { getLocale, withLang } from "@/lib/i18n";
-import { siteConfig } from "@/lib/site-config";
+import { buildBlogPostMetadata } from "@/lib/seo";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -18,6 +19,11 @@ type Props = {
 const midCtaCopy = {
   vi: "Nhắn Zalo để giữ phòng nhanh tại K2 Homestay",
   en: "Message K2 on Zalo to hold your room quickly",
+} as const;
+
+const midCtaNote = {
+  vi: "Cuối tuần thường hết phòng sớm.",
+  en: "Weekend dates often fill up early.",
 } as const;
 
 export function generateStaticParams() {
@@ -32,20 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Không tìm thấy bài viết" };
   }
 
-  return {
-    title: `${post.title} | K2 Homestay`,
-    description: post.description,
-    alternates: {
-      canonical: `${siteConfig.siteUrl}/blog/${post.slug}`,
-    },
-    openGraph: {
-      title: post.title,
-      description: post.description,
-      type: "article",
-      url: `${siteConfig.siteUrl}/blog/${post.slug}`,
-      images: [{ url: `${siteConfig.siteUrl}${post.image}`, width: 1200, height: 630, alt: post.imageAlt }],
-    },
-  };
+  return buildBlogPostMetadata(post);
 }
 
 export default async function BlogDetailPage({ params, searchParams }: Props) {
@@ -81,8 +74,8 @@ export default async function BlogDetailPage({ params, searchParams }: Props) {
                   K2 Homestay
                 </Link>{" "}
                 {locale === "vi" ? "và " : "and "}
-                <Link href={withLang("/rooms", locale)} className="font-semibold text-[var(--brand)]">
-                  {locale === "vi" ? "danh sách phòng" : "room list"}
+                <Link href={withLang("/#rooms", locale)} className="font-semibold text-[var(--brand)]">
+                  {locale === "vi" ? "danh sách phòng" : "room section"}
                 </Link>
                 .
               </p>
@@ -92,14 +85,10 @@ export default async function BlogDetailPage({ params, searchParams }: Props) {
                   <p>{paragraph}</p>
                   {index === 0 ? (
                     <div className="mt-4 rounded-[24px] bg-[var(--hero-surface)] p-4 text-sm font-semibold text-[var(--ink-strong)] sm:p-5">
-                      {midCtaCopy[locale]}
+                      <p>{midCtaCopy[locale]}</p>
+                      <p className="mt-1 text-sm font-medium text-[var(--ink-muted)]">{midCtaNote[locale]}</p>
                       <div className="mt-3">
-                        <a
-                          href={siteConfig.zaloUrl}
-                          className="inline-flex min-h-11 items-center justify-center rounded-full bg-[var(--brand)] px-5 text-sm font-semibold text-white"
-                        >
-                          Zalo
-                        </a>
+                        <BlogInlineZaloCta>{locale === "vi" ? "Nhắn Zalo" : "Chat on Zalo"}</BlogInlineZaloCta>
                       </div>
                     </div>
                   ) : null}
@@ -120,7 +109,7 @@ export default async function BlogDetailPage({ params, searchParams }: Props) {
       </main>
 
       <SiteFooter locale={locale} />
-      <MobileStickyActions locale={locale} />
+      <BlogStickyActions locale={locale} />
     </div>
   );
 }

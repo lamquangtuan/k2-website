@@ -29,7 +29,7 @@ export function SiteHeader({ locale = "vi", currentPath = "/" }: { locale?: Loca
           <Link href={withLang("/rooms", locale)} className="text-sm font-semibold text-[var(--ink-muted)] transition hover:text-[var(--ink-strong)]">
             {copy.nav.rooms}
           </Link>
-          <Link href={`/?lang=${locale}#reviews`} className="text-sm font-semibold text-[var(--ink-muted)] transition hover:text-[var(--ink-strong)]">
+          <Link href={withLang("/#reviews", locale)} className="text-sm font-semibold text-[var(--ink-muted)] transition hover:text-[var(--ink-strong)]">
             {copy.nav.reviews}
           </Link>
           <Link href={withLang("/contact", locale)} className="text-sm font-semibold text-[var(--ink-muted)] transition hover:text-[var(--ink-strong)]">

@@ -5,7 +5,20 @@ export function getLocale(input?: string): Locale {
 }
 
 export function withLang(path: string, locale: Locale) {
-  return `${path}${path.includes("?") ? "&" : "?"}lang=${locale}`;
+  const [pathAndQuery, hash = ""] = path.split("#");
+  const [pathname, queryString = ""] = pathAndQuery.split("?");
+  const params = new URLSearchParams(queryString);
+
+  params.delete("lang");
+
+  if (locale === "en") {
+    params.set("lang", "en");
+  }
+
+  const nextQuery = params.toString();
+  const nextPath = nextQuery ? `${pathname}?${nextQuery}` : pathname;
+
+  return hash ? `${nextPath}#${hash}` : nextPath;
 }
 
 export const uiCopy = {
