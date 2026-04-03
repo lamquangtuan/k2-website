@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { blogPosts } from "@/lib/site-data";
+import { blogPosts } from "@/lib/blog-data";
 import { roomTypes } from "@/lib/k2-content";
 import { siteConfig } from "@/lib/site-config";
 

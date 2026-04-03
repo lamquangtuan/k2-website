@@ -1,14 +1,126 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CtaButtons } from "@/components/cta-buttons";
+import { HomeHeroActions } from "@/components/home-hero-actions";
 import { MobileStickyActions } from "@/components/mobile-sticky-actions";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { getLocale } from "@/lib/i18n";
-import { blogPosts } from "@/lib/site-data";
+import { blogPosts, getBlogPostBySlug } from "@/lib/blog-data";
+import { getLocale, withLang } from "@/lib/i18n";
+import { siteConfig } from "@/lib/site-config";
 
-type Props = { params: Promise<{ slug: string }>; searchParams?: Promise<{ lang?: string }>; };
-const copy = { vi: { ctaHeading: "Xem phòng và liên hệ nhanh", ctaText: "Nếu bạn đã chọn được loại phòng phù hợp, hãy liên hệ trực tiếp để K2 kiểm tra phòng trống." }, en: { ctaHeading: "See rooms and contact K2 quickly", ctaText: "If you already know the room you need, contact K2 directly to check availability." } } as const;
-export async function generateStaticParams() { return blogPosts.map((post) => ({ slug: post.slug })); }
-export async function generateMetadata({ params }: Props): Promise<Metadata> { const { slug } = await params; const post = blogPosts.find((item) => item.slug === slug); if (!post) return { title: "Không tìm thấy bài viết" }; return { title: post.title, description: post.excerpt }; }
-export default async function BlogDetailPage({ params, searchParams }: Props) { const { slug } = await params; const locale = getLocale((await searchParams)?.lang); const text = copy[locale]; const post = blogPosts.find((item) => item.slug === slug); if (!post) notFound(); return <div className="min-h-screen bg-[var(--bg-page)] text-[var(--ink-strong)]"><SiteHeader locale={locale} currentPath={`/blog/${post.slug}`} /><main className="px-4 pb-24 pt-6 sm:px-6 lg:px-8"><article className="mx-auto max-w-4xl rounded-[36px] border border-[var(--line)] bg-[var(--surface)] p-6 shadow-sm sm:p-8"><div className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ink-soft)]"><span>{post.category}</span><span>{post.readTime}</span><span>{post.publishedAt}</span></div><h1 className="mt-4 font-display text-5xl leading-tight">{post.title}</h1><p className="mt-4 text-lg leading-8 text-[var(--ink-muted)]">{post.excerpt}</p><div className="mt-8 space-y-5 text-base leading-8 text-[var(--ink-muted)]">{post.content.map((paragraph) => (<p key={paragraph}>{paragraph}</p>))}</div><div className="mt-10 rounded-[28px] bg-[var(--hero-surface)] p-6"><h2 className="font-display text-3xl">{text.ctaHeading}</h2><p className="mt-3 text-sm leading-7 text-[var(--ink-muted)]">{text.ctaText}</p><div className="mt-6"><CtaButtons locale={locale} /></div></div></article></main><SiteFooter locale={locale} /><MobileStickyActions locale={locale} /></div>; }
+type Props = {
+  params: Promise<{ slug: string }>;
+  searchParams?: Promise<{ lang?: string }>;
+};
+
+const midCtaCopy = {
+  vi: "Nhắn Zalo để giữ phòng nhanh tại K2 Homestay",
+  en: "Message K2 on Zalo to hold your room quickly",
+} as const;
+
+export function generateStaticParams() {
+  return blogPosts.map((post) => ({ slug: post.slug }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getBlogPostBySlug(slug);
+
+  if (!post) {
+    return { title: "Không tìm thấy bài viết" };
+  }
+
+  return {
+    title: `${post.title} | K2 Homestay`,
+    description: post.description,
+    alternates: {
+      canonical: `${siteConfig.siteUrl}/blog/${post.slug}`,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      url: `${siteConfig.siteUrl}/blog/${post.slug}`,
+      images: [{ url: `${siteConfig.siteUrl}${post.image}`, width: 1200, height: 630, alt: post.imageAlt }],
+    },
+  };
+}
+
+export default async function BlogDetailPage({ params, searchParams }: Props) {
+  const { slug } = await params;
+  const locale = getLocale((await searchParams)?.lang);
+  const post = getBlogPostBySlug(slug);
+
+  if (!post) {
+    notFound();
+  }
+
+  return (
+    <div className="min-h-screen bg-[var(--bg-page)] text-[var(--ink-strong)]">
+      <SiteHeader locale={locale} currentPath={`/blog/${post.slug}`} />
+
+      <main className="px-4 pb-24 pt-6 sm:px-6 lg:px-8">
+        <article className="mx-auto max-w-4xl overflow-hidden rounded-[32px] border border-[var(--line)] bg-[var(--surface)] shadow-sm">
+          <div className="relative min-h-[220px] sm:min-h-[360px]">
+            <Image src={post.image} alt={post.imageAlt} fill priority sizes="(min-width: 768px) 896px, 100vw" className="object-cover" />
+          </div>
+
+          <div className="p-5 sm:p-8">
+            <div className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ink-soft)]">
+              {post.readTime} · {post.publishedAt}
+            </div>
+            <h1 className="mt-3 font-display text-4xl leading-tight tracking-[-0.04em] sm:text-5xl">{post.title}</h1>
+            <p className="mt-3 text-base leading-7 text-[var(--ink-muted)]">{post.description}</p>
+
+            <div className="mt-6 space-y-4 text-sm leading-7 text-[var(--ink-muted)] sm:text-base">
+              <p>
+                {locale === "vi" ? "Xem thêm phòng tại " : "See more rooms on "}
+                <Link href={withLang("/", locale)} className="font-semibold text-[var(--brand)]">
+                  K2 Homestay
+                </Link>{" "}
+                {locale === "vi" ? "và " : "and "}
+                <Link href={withLang("/rooms", locale)} className="font-semibold text-[var(--brand)]">
+                  {locale === "vi" ? "danh sách phòng" : "room list"}
+                </Link>
+                .
+              </p>
+
+              {post.content.map((paragraph, index) => (
+                <div key={paragraph}>
+                  <p>{paragraph}</p>
+                  {index === 0 ? (
+                    <div className="mt-4 rounded-[24px] bg-[var(--hero-surface)] p-4 text-sm font-semibold text-[var(--ink-strong)] sm:p-5">
+                      {midCtaCopy[locale]}
+                      <div className="mt-3">
+                        <a
+                          href={siteConfig.zaloUrl}
+                          className="inline-flex min-h-11 items-center justify-center rounded-full bg-[var(--brand)] px-5 text-sm font-semibold text-white"
+                        >
+                          Zalo
+                        </a>
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 rounded-[28px] bg-[var(--hero-surface)] p-5">
+              <h2 className="font-display text-3xl tracking-[-0.04em]">
+                {locale === "vi" ? "Giữ phòng nhanh tại K2 Homestay" : "Hold your room quickly at K2 Homestay"}
+              </h2>
+              <div className="mt-4">
+                <HomeHeroActions locale={locale} />
+              </div>
+            </div>
+          </div>
+        </article>
+      </main>
+
+      <SiteFooter locale={locale} />
+      <MobileStickyActions locale={locale} />
+    </div>
+  );
+}

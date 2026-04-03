@@ -1,5 +1,8 @@
 "use server";
 
+import type { BlogPost } from "@/lib/blog-data";
+import { siteConfig } from "@/lib/site-config";
+
 type SocialPostInput = {
   roomName?: string;
   priceText?: string;
@@ -14,12 +17,25 @@ export async function formatFacebookZaloPost(input: SocialPostInput = {}) {
   return formatSocialPost(input);
 }
 
-function formatSocialPost({ roomName = "K2 Homestay", priceText = "Giá tốt tại trung tâm Ninh Kiều", highlights = [] }: SocialPostInput) {
+export async function generateBlogPostContent(article: BlogPost) {
+  return [
+    `✨ ${article.title}`,
+    article.description,
+    `Nhắn Zalo giữ phòng nhanh: ${siteConfig.zaloUrl}`,
+    `${siteConfig.siteUrl}/blog/${article.slug}`,
+  ].join("\n");
+}
+
+function formatSocialPost({
+  roomName = "K2 Homestay",
+  priceText = "Giá tốt tại trung tâm Ninh Kiều",
+  highlights = [],
+}: SocialPostInput) {
   const lines = [
-    `${roomName} - ${priceText}`,
+    `✨ ${roomName} - ${priceText}`,
     "Gần trung tâm Ninh Kiều, dễ di chuyển, phản hồi nhanh qua Zalo.",
     ...highlights,
-    "Liên hệ K2 Homestay để giữ phòng nhanh.",
+    `Nhắn Zalo giữ phòng nhanh: ${siteConfig.zaloUrl}`,
   ];
 
   return lines.filter(Boolean).join("\n");
