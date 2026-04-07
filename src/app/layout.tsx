@@ -11,6 +11,9 @@ const description =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
+  alternates: {
+    canonical: siteConfig.siteUrl,
+  },
   title: {
     default: title,
     template: "%s | K2 Homestay",

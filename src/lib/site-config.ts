@@ -20,3 +20,7 @@ export const siteConfig = {
 export function getSiteAddress(locale: Locale) {
   return locale === "en" ? siteConfig.addressEn : siteConfig.address;
 }
+
+export function buildCanonicalUrl(path = "/") {
+  return `${siteConfig.siteUrl}${path === "/" ? "/" : path}`;
+}

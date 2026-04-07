@@ -6,10 +6,14 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { roomTypes } from "@/lib/k2-content";
 import { getLocale, uiCopy } from "@/lib/i18n";
+import { buildCanonicalUrl } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Danh sách phòng",
   description: "Xem nhanh 3 loại phòng tại K2 Homestay để chọn đúng nhu cầu và đặt trực tiếp.",
+  alternates: {
+    canonical: buildCanonicalUrl("/rooms"),
+  },
 };
 
 export default async function RoomsPage({ searchParams }: { searchParams?: Promise<{ lang?: string }> }) {
